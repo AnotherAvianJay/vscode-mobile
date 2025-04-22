@@ -26,7 +26,8 @@ jobs:
         run: |
           npm install
           npm run build
-      - uses: actions/upload-artifact@v3
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
         if: matrix.node-version == '20.x'
         with:
           name: dist
@@ -62,12 +63,13 @@ jobs:
           ls dist/
           npx cap sync
           npx cap copy
-      - name: buid-android
+      - name: build-android
         run: |
           cd android
           chmod +x ./gradlew
           ./gradlew app:assemble
-      - uses: actions/upload-artifact@v3
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
         with:
           name: apks
           path: android/app/build/outputs/apk/release/*
